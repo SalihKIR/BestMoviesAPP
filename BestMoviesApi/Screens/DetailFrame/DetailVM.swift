@@ -6,7 +6,38 @@
 //
 
 import Foundation
+import UIKit
 
-class DetailVM{
+protocol DetailVMProtocol{
+    
+}
+
+protocol DetailVMDelegate: DetailVMProtocol{
+    var delegate: DetailVMDelegateOutPuts? {get set}
+//    var data: RandomResponse? {get set}
+    var dataPacket: RandomResponseElement? {get set}
+}
+
+protocol DetailVMDelegateOutPuts: AnyObject {
+    
+}
+
+class DetailVM: DetailVMDelegate {
+//    var data: RandomResponse?
+    var dataPacket: RandomResponseElement?
+    var delegate: DetailVMDelegateOutPuts?
+//    let network: Movie5ApiProtocol = API()
+//
+//    let url: String = "https://owen-wilson-wow-api.herokuapp.com/wows/random?results=5"
+    
+//    func getMovieData(){
+//        network.movieDowlandMovie(url: url) { [weak self] (repo , err) in
+//            if let repo = repo{
+//                self?.data = repo
+//            } else {
+//                print(err)
+//            }
+//        }
+//    }
     
 }
