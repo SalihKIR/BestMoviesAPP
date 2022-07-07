@@ -25,6 +25,7 @@ protocol DetailVMDelegateOutPuts: AnyObject {
 class DetailVM: DetailVMDelegate {
 //    var data: RandomResponse?
     var dataPacket: RandomResponseElement?
+    var dataAll: AllMovie?
     var delegate: DetailVMDelegateOutPuts?
 //    let network: Movie5ApiProtocol = API()
 //
