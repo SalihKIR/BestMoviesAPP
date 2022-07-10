@@ -7,33 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CE47A6B2-D945-48A1-B1BC-EC0C20FC1D2F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BestMoviesApi/Screens/Home/Main.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2FBFE555-A96C-4F36-8BAC-23F3A6AAC6AD"
+            uuid = "EB8B90EE-60B7-468D-A909-C6823BFDD296"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BestMoviesApi/Screens/Home/Main.swift"
+            filePath = "BestMoviesApi/Screens/AllFilms/AllFilmsVM.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "getmovieDowlandAllMovieNew()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EB8B90EE-60B7-468D-A909-C6823BFDD296 - 16cdcd8b945f0bf4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;BestMoviesApi.AllMovieNew&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in BestMoviesApi.AllFilmsVM.getmovieDowlandAllMovieNew() -&gt; ()"
+                  moduleName = "BestMoviesApi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/salihkir/Projeler/App/BestMoviesAPII/BestMoviesApi/Screens/AllFilms/AllFilmsVM.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "EB8B90EE-60B7-468D-A909-C6823BFDD296 - 16cdcd8b945f0bf4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;BestMoviesApi.AllMovieNew&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in BestMoviesApi.AllFilmsVM.getmovieDowlandAllMovieNew() -&gt; ()"
+                  moduleName = "BestMoviesApi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/salihkir/Projeler/App/BestMoviesAPII/BestMoviesApi/Screens/AllFilms/AllFilmsVM.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "328">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
