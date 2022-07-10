@@ -13,10 +13,11 @@ class DetailVC: UIViewController{
     var viewModel: DetailVM = DetailVM()
     @IBOutlet weak var backGroundImageView: UIImageView!
     @IBOutlet weak var tryImageView: UIImageView!
-    @IBOutlet weak var tryView: UIView!
+    @IBOutlet weak var moveDirector: UILabel!
+    @IBOutlet weak var moveInformationFirst: UILabel!
+    @IBOutlet weak var moveInformatinSecond: UILabel!
     
     @IBOutlet weak var stackView: UIStackView!
-    
     @IBOutlet weak var movieNameLabel: UILabel!
     @IBOutlet weak var movieTime: UILabel!
     @IBOutlet weak var videoOptions720P: UILabel!
@@ -25,10 +26,10 @@ class DetailVC: UIViewController{
     override func viewDidLoad() {
            super.viewDidLoad()
        // backGroundImageView.backgroundColor = UIColor(patternImage: UIImage(named: "cloud")!)
-        navigationController?.navigationBar.isHidden = false
+       // navigationController?.navigationBar.isHidden = false
         stackView.layer.cornerRadius = 20
         tryImageView.layer.cornerRadius = 20
-        tryView.layer.cornerRadius = 20
+        
         if let dataposter = viewModel.dataPacket?.poster{
             tryImageView.downloaded(from: dataposter)
         }
@@ -36,6 +37,9 @@ class DetailVC: UIViewController{
         movieNameLabel.text = viewModel.dataPacket?.movie
         videoOptions720P.text = viewModel.dataPacket?.video.the720P
         //videoOptions1080P.text = viewModel.dataPacket?.video.the1080P
+        moveDirector.text = viewModel.dataPacket?.director
+        moveInformationFirst.text = viewModel.dataPacket?.character
+        moveInformatinSecond.text = viewModel.dataPacket?.releaseDate
        }
     
     @IBAction func videoShow1080P(_ sender: Any) {
