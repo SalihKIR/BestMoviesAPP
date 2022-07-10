@@ -30,7 +30,6 @@ final class NetworkManager{
     task.resume()
     
     func postData<T: Codable, K: Encodable>(url: String, params: K, completion: @escaping (T?) -> Void) {
-                
-            }
+                }
 }
 }

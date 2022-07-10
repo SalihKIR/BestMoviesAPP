@@ -11,6 +11,7 @@ import UIKit
 public enum StoryboardNames: String{
     case main = "Main"
     case detail = "Detail"
+    case allFilm = "AllFilms"
 }
 
 protocol StoryboardSettings {
