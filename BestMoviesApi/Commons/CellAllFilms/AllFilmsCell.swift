@@ -9,7 +9,9 @@ import UIKit
 
 class AllFilmsCell: UITableViewCell {
     @IBOutlet weak var allFilmsImageView: UIImageView!
-    
+    @IBOutlet weak var movieFirstLabel: UILabel!
+    @IBOutlet weak var movieSecondLabel: UILabel!
+    @IBOutlet weak var movieThirdLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         
