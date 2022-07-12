@@ -16,8 +16,12 @@ protocol Movie5ApiProtocol {
 
 extension API: Movie5ApiProtocol {
     func movieDowlandAllMovieNew(url: String, completion: @escaping (AllMovieNew?, String?) -> Void) {
-        network.getdata(url: url, completion: completion)
+        network.getdata(url: url , completion: completion)
     }
+    
+//    func movieDowlandAllMovieNew(url: String, completion: @escaping (AllMovieNew?, String?) -> Void) {
+//        network.getdata(url: url, completion: completion)
+//    }
    
     func movieDowlandOneMovie(url: String, completion: @escaping (RandomoneMovie?, String?) -> Void) {
         network.getdata(url: url, completion: completion)
