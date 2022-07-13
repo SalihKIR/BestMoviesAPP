@@ -16,16 +16,18 @@ protocol DetailVMDelegate: DetailVMProtocol{
     var delegate: DetailVMDelegateOutPuts? {get set}
 //    var data: RandomResponse? {get set}
     var dataPacket: RandomResponseElement? {get set}
+    var dataAllFilm: Search? {get set}
 }
 
 protocol DetailVMDelegateOutPuts: AnyObject {
     
 }
 
-class DetailVM: DetailVMDelegate {
+class DetailVM: DetailVMDelegate {    
 //    var data: RandomResponse?
     var dataPacket: RandomResponseElement?
     var dataAll: AllMovie?
+    var dataAllFilm: Search?
     var delegate: DetailVMDelegateOutPuts?
 //    let network: Movie5ApiProtocol = API()
 //

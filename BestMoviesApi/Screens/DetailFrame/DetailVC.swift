@@ -40,8 +40,13 @@ class DetailVC: UIViewController{
         moveDirector.text = viewModel.dataPacket?.director
         moveInformationFirst.text = viewModel.dataPacket?.character
         moveInformatinSecond.text = viewModel.dataPacket?.releaseDate
+        movieNameLabel.text = viewModel.dataAllFilm?.title
+        movieTime.text = viewModel.dataAllFilm?.year
+        tryImageView.downloaded(from: viewModel.dataAllFilm?.poster ?? "")
        }
-    
+    func allFilmsVCPage(){
+        
+    }
     @IBAction func videoShow1080P(_ sender: Any) {
        // print(viewModel.dataPacket?.video.the1080P as Any)
         if let video = viewModel.dataPacket?.video.the720P{
