@@ -14,24 +14,61 @@ class Main: UIViewController {
     @IBOutlet weak var randomImageView: UIImageView!
     @IBOutlet weak var MovieTabelView: UITableView!
     @IBOutlet weak var movieCollectionView: UICollectionView!
+    @IBOutlet weak var clickableView: UIView!
+    
+    //MARK: UI
+    @IBOutlet weak var topLeftImageView: UIView!
+    @IBOutlet weak var detailRightLabel: UIView!
+    @IBOutlet weak var fiveFilmsForLabel: UILabel!
+    @IBOutlet weak var allFilms: UILabel!
+    
+    
     var viewModel: MainVM = MainVM()
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
-        
         viewModel.getMovieData()
         viewModel.getMovieoneData()
-        viewModel.getAllMovie()
-        navigationController?.navigationBar.isHidden = true
+        setRadius()
+        //clickableView for click
+        let clickable = UITapGestureRecognizer(target: self, action: #selector(clicked))
+        clickableView.addGestureRecognizer(clickable)
+        //navigationController?.navigationBar.isHidden = true
         movieCollectionView.delegate = self
         movieCollectionView.dataSource = self
         movieCollectionView.register(MovieCollectionCell.nibName, forCellWithReuseIdentifier: MovieCollectionCell.identifier)
         MovieTabelView.delegate = self
         MovieTabelView.dataSource = self
         MovieTabelView.register(MovieCell.nibName, forCellReuseIdentifier: MovieCell.identifier)
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(allFilmShow))
         
        // Deneme.text = viewModel.data?[0].movie
     }
+    //AllFilmsShow
+    @objc func clicked(){
+        if let data = viewModel.dataRandomOneMovie{
+            //AppRouter.shared.showDetailPage(_navigationController: self.navigationController, data: data )
+            AppRouter.shared.showDetailOneFilmPage(_navigationController: self.navigationController, data: data)
+        }
+        
+    }
+    @objc func allFilmShow(){
+        let vc = AllFilmsVC.instantiate(storyboard: .allFilm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setRadius() {
+        topLeftImageView.layer.cornerRadius = 16
+        detailRightLabel.layer.cornerRadius = 16
+        detailRightLabel.layer.masksToBounds = true
+        fiveFilmsForLabel.layer.cornerRadius = 16
+        fiveFilmsForLabel.layer.masksToBounds = true
+        movieCollectionView.layer.cornerRadius = 16
+        allFilms.layer.cornerRadius = 16
+        allFilms.layer.masksToBounds = true
+        MovieTabelView.layer.cornerRadius = 16
+    }
+    
 }
 
 extension Main: UICollectionViewDelegate , UICollectionViewDataSource{
@@ -40,6 +77,9 @@ extension Main: UICollectionViewDelegate , UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectCell = movieCollectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionCell.identifier, for: indexPath) as! MovieCollectionCell
         collectCell.imageView.downloaded(from: (viewModel.data?[indexPath.row].poster) ?? "")
+        collectCell.CollectionPage.numberOfPages = viewModel.data?.count ?? 0
+        let pageNumber = collectCell.frame.size.width
+        collectCell.CollectionPage.currentPage = Int(pageNumber)
 //        if let data = viewModel.data {
 //            collectCell.setImage(data: data[indexPath.row] )
 //        }
