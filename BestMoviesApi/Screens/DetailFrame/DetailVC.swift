@@ -43,6 +43,7 @@ class DetailVC: UIViewController{
         movieNameLabel.text = viewModel.dataAllFilm?.title
         movieTime.text = viewModel.dataAllFilm?.year
         tryImageView.downloaded(from: viewModel.dataAllFilm?.poster ?? "")
+        //movieNameLabel.text = 
        }
     func allFilmsVCPage(){
         
