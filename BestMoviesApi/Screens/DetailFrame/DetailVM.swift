@@ -17,18 +17,24 @@ protocol DetailVMDelegate: DetailVMProtocol{
 //    var data: RandomResponse? {get set}
     var dataPacket: RandomResponseElement? {get set}
     var dataAllFilm: Search? {get set}
+    var dataOneMovie: RandomoneMovie? {get set}
+    var datajustone: RandomoneMovieElement? {get set}
+
 }
 
 protocol DetailVMDelegateOutPuts: AnyObject {
     
 }
 
-class DetailVM: DetailVMDelegate {    
+class DetailVM: DetailVMDelegate {
+    var datajustone: RandomoneMovieElement?
+    
 //    var data: RandomResponse?
     var dataPacket: RandomResponseElement?
     var dataAll: AllMovie?
     var dataAllFilm: Search?
     var delegate: DetailVMDelegateOutPuts?
+    var dataOneMovie: RandomoneMovie?
 //    let network: Movie5ApiProtocol = API()
 //
 //    let url: String = "https://owen-wilson-wow-api.herokuapp.com/wows/random?results=5"
