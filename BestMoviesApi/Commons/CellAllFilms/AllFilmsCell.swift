@@ -23,6 +23,14 @@ class AllFilmsCell: UITableViewCell {
       
     }
     
+    func setText(data: Search) {
+        allFilmsImageView.downloaded(from: data.poster, contentMode: .scaleAspectFit)
+        movieFirstLabel.text = data.title
+        movieSecondLabel.text = data.imdbID
+        movieThirdLabel.text = data.year
+        
+    }
+    
 }
 extension AllFilmsCell {
     static var identifier: String {
