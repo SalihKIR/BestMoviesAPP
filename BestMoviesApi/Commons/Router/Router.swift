@@ -29,7 +29,7 @@ final class AppRouter{
         
     }
     
-    func showDetailOneFilmPage(_navigationController:UINavigationController? , data: RandomoneMovie){
+    func showDetailOneFilmPage(_navigationController:UINavigationController? , data: RandomoneMovieElement){
         let vc = DetailVC.instantiate(storyboard: .detail)
         let vm = DetailVM()
         vm.dataRandomOneMovie = data
