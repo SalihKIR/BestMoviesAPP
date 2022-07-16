@@ -32,14 +32,22 @@ class AllFilmsVC: UIViewController {
        }
     
     @IBAction func filmsSearchButton(_ sender: Any) {
-        var searchText = filmsSearchBar.text
-        viewModelAllFilm.getmovieDowlandAllMovieNew(searchText: searchText ?? "")
+        var searchBarText = filmsSearchBar.text
+        SwiftSpinner.show("Loading")
+        viewModelAllFilm.getMovieDownloadAllMovieNew(searchText: searchBarText ?? "")
+        SwiftSpinner.hide()
     }
 }
 
 extension AllFilmsVC: AllFilmsVMDelegatesOutPuts {
+    func emptySearch(anyResult: Bool) {
+        print(anyResult)
+    }
+    
     func reloadTabelView() {
         alllFilmsShowTabelView.reloadData()
+        SwiftSpinner.hide()
+
     }
     
     
@@ -47,21 +55,19 @@ extension AllFilmsVC: AllFilmsVMDelegatesOutPuts {
 
 extension AllFilmsVC: UITableViewDelegate , UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModelAllFilm.dataAll?.search.count ?? 0
+        return viewModelAllFilm.dataPacketAllFilms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let allFilmsCell = alllFilmsShowTabelView.dequeueReusableCell(withIdentifier: AllFilmsCell.identifier, for: indexPath) as! AllFilmsCell
-        if let image = viewModelAllFilm.dataAll?.search[indexPath.row].poster{
-            allFilmsCell.allFilmsImageView.downloaded(from: image)
-        }
-        allFilmsCell.movieFirstLabel.text = viewModelAllFilm.dataAll?.search[indexPath.row].title
-        //allFilmsCell.movieSecondLabel.text = viewModelAllFilm.dataAll?.search[indexPath.row].type
-        var randomIMDB = Float.random(in: 5.1...9.9)
-        allFilmsCell.movieSecondLabel.text = String(randomIMDB)
-        //allFilmsCell.movieSecondLabel.text =
-        allFilmsCell.movieThirdLabel.text = viewModelAllFilm.dataAll?.search[indexPath.row].year
-        
+        let data = viewModelAllFilm.dataPacketAllFilms[indexPath.row]
+            allFilmsCell.setText(data: data)
+        SwiftSpinner.hide()
+        if (Double(indexPath.row) * 100) / (100 * Double(viewModelAllFilm.dataPacketAllFilms.count)) > 0.8 {
+            SwiftSpinner.show("Loading")
+            viewModelAllFilm.getNewData()
+            SwiftSpinner.hide()
+            }
         return allFilmsCell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -69,11 +75,14 @@ extension AllFilmsVC: UITableViewDelegate , UITableViewDataSource{
        }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let data = viewModelAllFilm.dataAll?.search[indexPath.row]{
-            AppRouter.shared.showDetailSearchFilmPage(_navigationController: self.navigationController, data: data)
-            
-        }
+//        if let data = viewModelAllFilm.dataAll?.search[indexPath.row]{
+//            AppRouter.shared.showDetailSearchFilmPage(_navigationController: self.navigationController, data: data)
+//
+//        }
+            AppRouter.shared.showDetailSearchFilmPage(_navigationController: self.navigationController, data: viewModelAllFilm.dataPacketAllFilms[indexPath.row])
+        
         
     }
+    
     
 }
