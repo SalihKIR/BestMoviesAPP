@@ -16,41 +16,89 @@ class DetailVC: UIViewController{
     @IBOutlet weak var moveDirector: UILabel!
     @IBOutlet weak var moveInformationFirst: UILabel!
     @IBOutlet weak var moveInformatinSecond: UILabel!
-    
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var movieNameLabel: UILabel!
     @IBOutlet weak var movieTime: UILabel!
-    @IBOutlet weak var videoOptions720P: UILabel!
+    @IBOutlet weak var stackView: UIStackView!
+    
+    @IBOutlet weak var movieMidLabelFirst: UILabel!
+    @IBOutlet weak var movieMidLabelSecond: UILabel!
+    @IBOutlet weak var movieMidLabelThird: UILabel!
+    
+    @IBOutlet weak var movieBottomLabelFirst: UILabel!
+    @IBOutlet weak var movieBottomLabelSecond: UILabel!
+    @IBOutlet weak var movieBottomLabelThird: UILabel!
+    
+    //UISET
+    @IBOutlet weak var viewCornerFirst: UIView!
+    @IBOutlet weak var viewCornerSecond: UIView!
+    @IBOutlet weak var viewCornerThird: UIView!
+    @IBOutlet weak var viewCornerFourth: UIView!
+    
+    
+    
     //@IBOutlet weak var videoOptions1080P: UILabel!
     var avpController = AVPlayerViewController()
     override func viewDidLoad() {
            super.viewDidLoad()
+       
        // backGroundImageView.backgroundColor = UIColor(patternImage: UIImage(named: "cloud")!)
        // navigationController?.navigationBar.isHidden = false
         stackView.layer.cornerRadius = 20
         tryImageView.layer.cornerRadius = 20
+        setCorner()
         
         if let dataposter = viewModel.dataPacket?.poster{
-            tryImageView.downloaded(from: dataposter)
+            tryImageView.downloaded(from: dataposter, contentMode: .scaleAspectFit)
         }
-        movieTime.text = viewModel.dataPacket?.timestamp
-        movieNameLabel.text = viewModel.dataPacket?.movie
-        videoOptions720P.text = viewModel.dataPacket?.video.the720P
-        //videoOptions1080P.text = viewModel.dataPacket?.video.the1080P
-        moveDirector.text = viewModel.dataPacket?.director
-        moveInformationFirst.text = viewModel.dataPacket?.character
-        moveInformatinSecond.text = viewModel.dataPacket?.releaseDate
-        movieNameLabel.text = viewModel.dataAllFilm?.title
-        movieTime.text = viewModel.dataAllFilm?.year
-        tryImageView.downloaded(from: viewModel.dataAllFilm?.poster ?? "")
-        //movieNameLabel.text = 
+        if let data = viewModel.dataRandomOneMovie {
+            allFilmsVCPage(data: data)
+
+        }
+//        movieTime.text = viewModel.dataPacket?.timestamp
+//        movieNameLabel.text = viewModel.dataPacket?.movie
+//        videoOptions720P.text = viewModel.dataPacket?.video.the720P
+//        //videoOptions1080P.text = viewModel.dataPacket?.video.the1080P
+//        moveDirector.text = viewModel.dataPacket?.director
+//        moveInformationFirst.text = viewModel.dataPacket?.character
+//        moveInformatinSecond.text = viewModel.dataPacket?.releaseDate
+//        movieNameLabel.text = viewModel.dataAllFilm?.title
+//        movieTime.text = viewModel.dataAllFilm?.year
+//        tryImageView.downloaded(from: viewModel.dataAllFilm?.poster ?? "", contentMode: .scaleAspectFit)
+       // movieNameLabel.text = viewModel.dataPacket?.movie
        }
-    func allFilmsVCPage(){
+    func setCorner(){
+        viewCornerFirst.layer.cornerRadius = 20
+        viewCornerFirst.layer.masksToBounds = true
+        viewCornerSecond.layer.cornerRadius = 20
+        viewCornerSecond.layer.masksToBounds = true
+        viewCornerThird.layer.cornerRadius = 20
+        viewCornerThird.layer.masksToBounds = true
+        viewCornerFourth.layer.cornerRadius = 20
+        viewCornerFourth.layer.masksToBounds = true
         
+    }
+    
+    func allFilmsVCPage(data: RandomoneMovieElement){
+        moveInformatinSecond.text = data.movie
+        tryImageView.downloaded(from: data.poster, contentMode: .scaleAspectFit)
+        movieTime.text = data.timestamp
+        moveInformationFirst.text = data.character
+        moveDirector.text = data.director
+        movieMidLabelFirst.text = data.fullLine
+        movieMidLabelSecond.text = data.movieDuration
+        movieMidLabelThird.text = data.releaseDate
+        var year : String
+        var current : String
+        var total : String
+        year = String(data.year)
+        current = String(data.currentWowInMovie)
+        total = String(data.totalWowsInMovie)
+        movieBottomLabelFirst.text = year
+        movieBottomLabelSecond.text = current
+        movieBottomLabelThird.text = total
     }
     @IBAction func videoShow1080P(_ sender: Any) {
        // print(viewModel.dataPacket?.video.the1080P as Any)
-        if let video = viewModel.dataPacket?.video.the720P{
+        if let video = viewModel.dataRandomOneMovie?.video.the720P{
             let videoURL = URL(string: video)
             let player = AVPlayer(url: videoURL!)
             let playerViewController = AVPlayerViewController()
