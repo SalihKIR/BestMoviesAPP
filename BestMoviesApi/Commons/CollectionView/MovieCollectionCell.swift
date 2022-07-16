@@ -9,7 +9,6 @@ import UIKit
 
 class MovieCollectionCell: UICollectionViewCell {
 
-    @IBOutlet weak var CollectionPage: UIPageControl!
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,6 +17,8 @@ class MovieCollectionCell: UICollectionViewCell {
 //    func setImage(data: RandomResponseElement) {
 //        self.imageView.downloaded(from: data.poster)
 //    }
+    
+    
 }
 extension MovieCollectionCell {
     static var identifier: String {
