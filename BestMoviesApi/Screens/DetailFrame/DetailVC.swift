@@ -38,33 +38,39 @@ class DetailVC: UIViewController{
     //@IBOutlet weak var videoOptions1080P: UILabel!
     var avpController = AVPlayerViewController()
     override func viewDidLoad() {
-           super.viewDidLoad()
-       
-       // backGroundImageView.backgroundColor = UIColor(patternImage: UIImage(named: "cloud")!)
-       // navigationController?.navigationBar.isHidden = false
+        super.viewDidLoad()
+        
+        // backGroundImageView.backgroundColor = UIColor(patternImage: UIImage(named: "cloud")!)
+        // navigationController?.navigationBar.isHidden = false
         stackView.layer.cornerRadius = 20
         tryImageView.layer.cornerRadius = 20
         setCorner()
         
-        if let dataposter = viewModel.dataPacket?.poster{
-            tryImageView.downloaded(from: dataposter, contentMode: .scaleAspectFit)
+        if let dataFiveForYou = viewModel.dataPacket{
+            
+            SwiftSpinner.show("Loading...")
+            fiveFilmForYou(data: dataFiveForYou)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.tryImageView.downloaded(from: dataFiveForYou.poster, contentMode: .scaleAspectFit)
+                
+            }
         }
         if let data = viewModel.dataRandomOneMovie {
             allFilmsVCPage(data: data)
-
+            
         }
-//        movieTime.text = viewModel.dataPacket?.timestamp
-//        movieNameLabel.text = viewModel.dataPacket?.movie
-//        videoOptions720P.text = viewModel.dataPacket?.video.the720P
-//        //videoOptions1080P.text = viewModel.dataPacket?.video.the1080P
-//        moveDirector.text = viewModel.dataPacket?.director
-//        moveInformationFirst.text = viewModel.dataPacket?.character
-//        moveInformatinSecond.text = viewModel.dataPacket?.releaseDate
-//        movieNameLabel.text = viewModel.dataAllFilm?.title
-//        movieTime.text = viewModel.dataAllFilm?.year
-//        tryImageView.downloaded(from: viewModel.dataAllFilm?.poster ?? "", contentMode: .scaleAspectFit)
-       // movieNameLabel.text = viewModel.dataPacket?.movie
-       }
+        //        movieTime.text = viewModel.dataPacket?.timestamp
+        //        movieNameLabel.text = viewModel.dataPacket?.movie
+        //        videoOptions720P.text = viewModel.dataPacket?.video.the720P
+        //        //videoOptions1080P.text = viewModel.dataPacket?.video.the1080P
+        //        moveDirector.text = viewModel.dataPacket?.director
+        //        moveInformationFirst.text = viewModel.dataPacket?.character
+        //        moveInformatinSecond.text = viewModel.dataPacket?.releaseDate
+        //        movieNameLabel.text = viewModel.dataAllFilm?.title
+        //        movieTime.text = viewModel.dataAllFilm?.year
+        //        tryImageView.downloaded(from: viewModel.dataAllFilm?.poster ?? "", contentMode: .scaleAspectFit)
+        // movieNameLabel.text = viewModel.dataPacket?.movie
+    }
     func setCorner(){
         viewCornerFirst.layer.cornerRadius = 20
         viewCornerFirst.layer.masksToBounds = true
@@ -77,7 +83,28 @@ class DetailVC: UIViewController{
         
     }
     
+    func fiveFilmForYou(data: RandomResponseElement ){
+        moveInformatinSecond.text = data.movie
+        movieTime.text = data.timestamp
+        moveInformationFirst.text = data.character
+        moveDirector.text = data.director
+        movieMidLabelFirst.text = data.fullLine
+        movieMidLabelSecond.text = data.movieDuration
+        movieMidLabelThird.text = data.releaseDate
+        var year : String
+        var current : String
+        var total : String
+        year = String(data.year)
+        current = String(data.currentWowInMovie)
+        total = String(data.totalWowsInMovie)
+        movieBottomLabelFirst.text = year
+        movieBottomLabelSecond.text = current
+        movieBottomLabelThird.text = total
+        SwiftSpinner.hide()
+    }
+    
     func allFilmsVCPage(data: RandomoneMovieElement){
+        SwiftSpinner.show("Loading...")
         moveInformatinSecond.text = data.movie
         tryImageView.downloaded(from: data.poster, contentMode: .scaleAspectFit)
         movieTime.text = data.timestamp
@@ -95,9 +122,11 @@ class DetailVC: UIViewController{
         movieBottomLabelFirst.text = year
         movieBottomLabelSecond.text = current
         movieBottomLabelThird.text = total
+        SwiftSpinner.hide()
     }
+    
     @IBAction func videoShow1080P(_ sender: Any) {
-       // print(viewModel.dataPacket?.video.the1080P as Any)
+        // print(viewModel.dataPacket?.video.the1080P as Any)
         if let video = viewModel.dataRandomOneMovie?.video.the720P{
             let videoURL = URL(string: video)
             let player = AVPlayer(url: videoURL!)
@@ -107,8 +136,8 @@ class DetailVC: UIViewController{
                 playerViewController.player!.play()
             }
         }
-      
-       
+        
+        
     }
     
 }
