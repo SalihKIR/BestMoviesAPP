@@ -18,6 +18,7 @@
 		D47DD193287B3EA400B0A5FE /* AllFilmsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DD191287B3EA400B0A5FE /* AllFilmsCell.swift */; };
 		D47DD194287B3EA400B0A5FE /* AllFilmsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D47DD192287B3EA400B0A5FE /* AllFilmsCell.xib */; };
 		D4B075AA28804E1C007542E1 /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B075A928804E1C007542E1 /* SwiftSpinner.swift */; };
+		D4D5828328837250005CE96A /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D5828228837250005CE96A /* UIImageView+Extension.swift */; };
 		D4F077CE286DA1630071AD1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F077CD286DA1630071AD1F /* AppDelegate.swift */; };
 		D4F077D0286DA1630071AD1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F077CF286DA1630071AD1F /* SceneDelegate.swift */; };
 		D4F077D2286DA1630071AD1F /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F077D1286DA1630071AD1F /* Main.swift */; };
@@ -47,6 +48,7 @@
 		D47DD191287B3EA400B0A5FE /* AllFilmsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFilmsCell.swift; sourceTree = "<group>"; };
 		D47DD192287B3EA400B0A5FE /* AllFilmsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllFilmsCell.xib; sourceTree = "<group>"; };
 		D4B075A928804E1C007542E1 /* SwiftSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
+		D4D5828228837250005CE96A /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		D4F077CA286DA1630071AD1F /* BestMoviesApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestMoviesApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F077CD286DA1630071AD1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4F077CF286DA1630071AD1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				D4F077F5286DC7730071AD1F /* StoryboardExtension.swift */,
+				D4D5828228837250005CE96A /* UIImageView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				D402568D28709F0900D59D64 /* MovieCollectionCell.swift in Sources */,
 				D4F077F6286DC7730071AD1F /* StoryboardExtension.swift in Sources */,
 				D4F077D0286DA1630071AD1F /* SceneDelegate.swift in Sources */,
+				D4D5828328837250005CE96A /* UIImageView+Extension.swift in Sources */,
 				D47DD18B287B331800B0A5FE /* AllFilmsVC.swift in Sources */,
 				D43B1D35287356BD00FF5D4E /* DetailVC.swift in Sources */,
 			);
@@ -479,6 +483,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -507,6 +512,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
