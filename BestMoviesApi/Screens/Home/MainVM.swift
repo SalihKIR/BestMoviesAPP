@@ -60,6 +60,8 @@ protocol MainVMDelegate: MainVMProtocol{
     var data: RandomResponse? { get set }
     var dataPacket: RandomResponseElement? {get set}
     var dataRandomOneMovie: RandomoneMovie? {get set}
+    var datajustone: RandomoneMovieElement? {get set}
+
 
 }
 
@@ -84,16 +86,18 @@ class MainVM: MainVMDelegate{
     var delegate: MainVMDelegatesOutPuts?
     let network: Movie5ApiProtocol = API()
     var dataRandomOneMovie: RandomoneMovie?
+    var datajustone: RandomoneMovieElement?
     let url: String = "https://owen-wilson-wow-api.herokuapp.com/wows/random?results=5"
     
     func getMovieData(){
         network.movieDowlandMovie(url: url) { [weak self] (repo, err)  in
             if let repo = repo {
                 self?.data = repo
+                SwiftSpinner.hide()
             } else {
                 print(err)
             }
-            
+            self?.delegate?.reloadTableView()
             self?.delegate?.reloadCollectionView()
         }
     }
@@ -102,7 +106,9 @@ class MainVM: MainVMDelegate{
     func getMovieoneData(){
         network.movieDowlandOneMovie(url: urls) { [weak self] (response, err)  in
             if let response = response {
+                self?.dataRandomOneMovie = response
                 self?.delegate?.handleViewModelOutputs(.succes(response))
+                SwiftSpinner.hide()
             }else {
                 print(err)
             }
@@ -112,15 +118,4 @@ class MainVM: MainVMDelegate{
         private func handleViewModelOutputs(_ type: MainVMOutputsOnmeMovie) {
             self.delegate?.handleViewModelOutputs(type)
         }
-    let urlAll: String = "https://owen-wilson-wow-api.herokuapp.com/wows/ordered/3-7"
-    func getAllMovie(){
-        network.movieDowlandAllMovie(url: urlAll) { [weak self] (response, err)  in
-            if let response = response {
-                self?.dataAll = response
-            }else {
-                print(err)
-            }
-            self?.delegate?.reloadTableView()
-        }
-    }
 }

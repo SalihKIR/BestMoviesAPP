@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class Main: UIViewController {
     @IBOutlet weak var randomMovieTimeLabel: UILabel!
     @IBOutlet weak var randomMovieNameLabel: UILabel!
@@ -22,45 +23,49 @@ class Main: UIViewController {
     @IBOutlet weak var fiveFilmsForLabel: UILabel!
     @IBOutlet weak var allFilms: UILabel!
     
+    @IBOutlet weak var alphaTopView: UIView!
+    @IBOutlet weak var pageController: UIPageControl!
+    
+    var cellTextImageIndex: Int = 0
     
     var viewModel: MainVM = MainVM()
     override func viewDidLoad() {
         super.viewDidLoad()
+        SwiftSpinner.show("Loading")
+        setupUI()
+        pageController.currentPage = 0
+    
+      
+     
+    }
+    
+    func setupUI() {
         viewModel.delegate = self
         viewModel.getMovieData()
         viewModel.getMovieoneData()
-        setRadius()
-        //clickableView for click
-        let clickable = UITapGestureRecognizer(target: self, action: #selector(clicked))
-        clickableView.addGestureRecognizer(clickable)
-        //navigationController?.navigationBar.isHidden = true
+        
         movieCollectionView.delegate = self
         movieCollectionView.dataSource = self
         movieCollectionView.register(MovieCollectionCell.nibName, forCellWithReuseIdentifier: MovieCollectionCell.identifier)
         MovieTabelView.delegate = self
         MovieTabelView.dataSource = self
         MovieTabelView.register(MovieCell.nibName, forCellReuseIdentifier: MovieCell.identifier)
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(allFilmShow))
-        
-       // Deneme.text = viewModel.data?[0].movie
-    }
-    //AllFilmsShow
-    @objc func clicked(){
-        if let data = viewModel.dataRandomOneMovie{
-            //AppRouter.shared.showDetailPage(_navigationController: self.navigationController, data: data )
-            AppRouter.shared.showDetailOneFilmPage(_navigationController: self.navigationController, data: data)
-        }
+        //MARK: Func
+        addNavigation()
+        addTapGestureRecognizer()
+        setRadius()
+        setBackgroundColor()
         
     }
-    @objc func allFilmShow(){
-        let vc = AllFilmsVC.instantiate(storyboard: .allFilm)
-        navigationController?.pushViewController(vc, animated: true)
+    
+    func setBackgroundColor(){
+        alphaTopView.backgroundColor = .black.withAlphaComponent(0.7)
     }
     
     func setRadius() {
         topLeftImageView.layer.cornerRadius = 16
-        detailRightLabel.layer.cornerRadius = 16
-        detailRightLabel.layer.masksToBounds = true
+        //detailRightLabel.layer.cornerRadius = 16
+        //detailRightLabel.layer.masksToBounds = true
         fiveFilmsForLabel.layer.cornerRadius = 16
         fiveFilmsForLabel.layer.masksToBounds = true
         movieCollectionView.layer.cornerRadius = 16
@@ -69,20 +74,36 @@ class Main: UIViewController {
         MovieTabelView.layer.cornerRadius = 16
     }
     
+    func addNavigation(){
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(allFilmShow))
+    }
+    
+    func addTapGestureRecognizer(){
+        let clickable = UITapGestureRecognizer(target: self, action: #selector(clicked))
+        clickableView.addGestureRecognizer(clickable)
+    }
+    @objc func clicked(){
+        if let data = viewModel.dataRandomOneMovie?.first{
+            //AppRouter.shared.showDetailPage(_navigationController: self.navigationController, data: data )
+            AppRouter.shared.showDetailOneFilmPage(_navigationController: self.navigationController, data: data)
+        }
+        
+    }
+    
+    @objc func allFilmShow(){
+        let vc = AllFilmsVC.instantiate(storyboard: .allFilm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
 }
 
-extension Main: UICollectionViewDelegate , UICollectionViewDataSource{
+extension Main: UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectCell = movieCollectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionCell.identifier, for: indexPath) as! MovieCollectionCell
-        collectCell.imageView.downloaded(from: (viewModel.data?[indexPath.row].poster) ?? "")
-        collectCell.CollectionPage.numberOfPages = viewModel.data?.count ?? 0
-        let pageNumber = collectCell.frame.size.width
-        collectCell.CollectionPage.currentPage = Int(pageNumber)
-//        if let data = viewModel.data {
-//            collectCell.setImage(data: data[indexPath.row] )
-//        }
+        collectCell.imageView.downloaded(from: viewModel.data?[indexPath.row].poster ?? "", contentMode: .scaleAspectFit)
         
         return collectCell
     }
@@ -94,13 +115,29 @@ extension Main: UICollectionViewDelegate , UICollectionViewDataSource{
         if let data = viewModel.data?[indexPath.row]{
             AppRouter.shared.showDetailPage(_navigationController: self.navigationController, data: data)
         }
-        
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        pageController.numberOfPages = viewModel.data?.count ?? 0
+        pageController.currentPage = indexPath.row
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+          for cell in movieCollectionView.visibleCells {
+            if let row = movieCollectionView.indexPath(for: cell)?.item {
+                pageController.currentPage = row
+                cellTextImageIndex = row
+            }
+          }
+      }
     
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var height = collectionView.layer.frame.height
+        var widht = collectionView.layer.frame.width
+        return CGSize(width: widht, height: height)
+    }
 }
-                        /// TabelView ///
+/// TabelView ///
 extension Main: UITableViewDelegate , UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.data?.count ?? 0//Just Zero
@@ -108,28 +145,28 @@ extension Main: UITableViewDelegate , UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let movieCell = MovieTabelView.dequeueReusableCell(withIdentifier: MovieCell.identifier, for: indexPath) as! MovieCell
-       // movieCell.cellLabelDirector.text = viewModel.data?[indexPath.row].director
+        // movieCell.cellLabelDirector.text = viewModel.data?[indexPath.row].director
         movieCell.cellLabelDirector.text = viewModel.data?[indexPath.row].director
         movieCell.cellLabelYear.text = viewModel.data?[indexPath.row].timestamp
         movieCell.cellLabel.text = viewModel.data?[indexPath.row].movie
-        movieCell.cellMovieİmage.downloaded(from: viewModel.data?[indexPath.row].poster ?? "")
+        movieCell.cellMovieİmage.downloaded(from: viewModel.data?[indexPath.row].poster ?? "", contentMode: .scaleAspectFit)
         return movieCell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let data = viewModel.data?[indexPath.row]{
             AppRouter.shared.showDetailPage(_navigationController: self.navigationController, data: data)
         }
-
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return 200.0
-       }
+        return 200.0
+    }
 }
 extension Main: MainVMDelegatesOutPuts{
-  
+    
     func reloadTableView() {
-            self.MovieTabelView.reloadData()
-        }
+        self.MovieTabelView.reloadData()
+    }
     
     func reloadCollectionView() {
         self.movieCollectionView.reloadData()
@@ -141,33 +178,12 @@ extension Main: MainVMDelegatesOutPuts{
             print(movie)
             randomMovieNameLabel.text = movie[0].movie
             randomMovieTimeLabel.text = movie[0].timestamp
-            randomImageView.downloaded(from: movie[0].poster)
-           // randomMovieTimeLabel.text = viewModel.dataRandomOneMovie?[0].timestamp
-            randomImageView.downloaded(from: viewModel.dataRandomOneMovie?[0].poster ?? "")
+            randomImageView.contentMode = .scaleAspectFill
+            randomMovieTimeLabel.text = viewModel.dataRandomOneMovie?[0].timestamp
+            randomImageView.downloaded(from: viewModel.dataRandomOneMovie?[0].poster ?? "", contentMode: .scaleAspectFill)
         case .error:
             break
         }
     }
-
-}
-
-extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else { return }
-            DispatchQueue.main.async() { [weak self] in
-                self?.image = image
-            }
-        }.resume()
-    }
-    func downloaded(from link: String, contentMode mode: ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
-    }
+    
 }
