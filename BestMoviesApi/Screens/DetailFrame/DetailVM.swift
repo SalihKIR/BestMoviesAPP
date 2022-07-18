@@ -18,7 +18,7 @@ protocol DetailVMDelegate: DetailVMProtocol{
     var dataPacket: RandomResponseElement? {get set}
     var dataAllFilm: Search? {get set}
     var datajustone: RandomoneMovieElement? {get set}
-    var dataRandomOneMovie: RandomoneMovie? {get set}
+    var dataRandomOneMovie: RandomoneMovieElement? {get set}
     
 
 }
@@ -28,12 +28,13 @@ protocol DetailVMDelegateOutPuts: AnyObject {
 }
 
 class DetailVM: DetailVMDelegate {
+    
     var datajustone: RandomoneMovieElement?
 //    var data: RandomResponse?
     var dataPacket: RandomResponseElement?
     var dataAll: AllMovie?
     var dataAllFilm: Search?
-    var dataRandomOneMovie: RandomoneMovie?
+    var dataRandomOneMovie: RandomoneMovieElement?
     var delegate: DetailVMDelegateOutPuts?
     
 //    let network: Movie5ApiProtocol = API()
