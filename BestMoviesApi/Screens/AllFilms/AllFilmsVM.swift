@@ -48,6 +48,7 @@ class AllFilmsVM: AllFilmsVMDelegate {
                 self.dataPacketAllFilms = response.search
                 let anyResult: Bool = response.search.count != 0
                 self.delegate?.emptySearch(anyResult: anyResult)
+                SwiftSpinner.hide()
             }else {
                 self.dataPacketAllFilms = []
                 self.delegate?.emptySearch(anyResult: false)
@@ -63,8 +64,10 @@ class AllFilmsVM: AllFilmsVMDelegate {
             guard let self = self else {return}
             if let response = response {
                 self.dataPacketAllFilms.append(contentsOf: response.search)
+                SwiftSpinner.hide()
             }
             self.delegate?.reloadTabelView()
+            
         }
     }
 

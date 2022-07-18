@@ -35,7 +35,7 @@ class AllFilmsVC: UIViewController {
         var searchBarText = filmsSearchBar.text
         SwiftSpinner.show("Loading")
         viewModelAllFilm.getMovieDownloadAllMovieNew(searchText: searchBarText ?? "")
-        SwiftSpinner.hide()
+        
     }
 }
 
@@ -46,7 +46,7 @@ extension AllFilmsVC: AllFilmsVMDelegatesOutPuts {
     
     func reloadTabelView() {
         alllFilmsShowTabelView.reloadData()
-        SwiftSpinner.hide()
+        //SwiftSpinner.hide()
 
     }
     
@@ -62,11 +62,11 @@ extension AllFilmsVC: UITableViewDelegate , UITableViewDataSource{
         let allFilmsCell = alllFilmsShowTabelView.dequeueReusableCell(withIdentifier: AllFilmsCell.identifier, for: indexPath) as! AllFilmsCell
         let data = viewModelAllFilm.dataPacketAllFilms[indexPath.row]
             allFilmsCell.setText(data: data)
-        SwiftSpinner.hide()
+        
         if (Double(indexPath.row) * 100) / (100 * Double(viewModelAllFilm.dataPacketAllFilms.count)) > 0.8 {
             SwiftSpinner.show("Loading")
             viewModelAllFilm.getNewData()
-            SwiftSpinner.hide()
+            
             }
         return allFilmsCell
     }
