@@ -46,6 +46,9 @@ class DetailVC: UIViewController{
         tryImageView.layer.cornerRadius = 20
         setCorner()
         
+        if let dataAllFilm = viewModel.dataAllFilm{
+            searchAllFilmsPage(data: dataAllFilm)
+        }
         if let dataFiveForYou = viewModel.dataPacket{
             
             SwiftSpinner.show("Loading...")
@@ -82,7 +85,21 @@ class DetailVC: UIViewController{
         viewCornerFourth.layer.masksToBounds = true
         
     }
-    
+    func searchAllFilmsPage(data: Search){
+        SwiftSpinner.show("Loading...")
+        moveInformatinSecond.text = data.title
+        tryImageView.downloaded(from: data.poster, contentMode: .scaleAspectFit)
+        movieTime.text = data.year
+        moveInformationFirst.text = data.imdbID
+        moveDirector.text = data.type.rawValue
+        movieMidLabelFirst.isHidden = true
+        movieMidLabelSecond.isHidden = true
+        movieMidLabelThird.isHidden = true
+        movieBottomLabelFirst.isHidden = true
+        movieBottomLabelSecond.isHidden = true
+        movieBottomLabelThird.isHidden = true
+        SwiftSpinner.hide()
+    }
     func fiveFilmForYou(data: RandomResponseElement ){
         moveInformatinSecond.text = data.movie
         movieTime.text = data.timestamp

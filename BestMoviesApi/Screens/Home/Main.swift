@@ -34,9 +34,9 @@ class Main: UIViewController {
         SwiftSpinner.show("Loading")
         setupUI()
         pageController.currentPage = 0
-    
-      
-     
+        
+        
+        
     }
     
     func setupUI() {
@@ -122,13 +122,13 @@ extension Main: UICollectionViewDelegate , UICollectionViewDataSource, UICollect
         pageController.currentPage = indexPath.row
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-          for cell in movieCollectionView.visibleCells {
+        for cell in movieCollectionView.visibleCells {
             if let row = movieCollectionView.indexPath(for: cell)?.item {
                 pageController.currentPage = row
                 cellTextImageIndex = row
             }
-          }
-      }
+        }
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

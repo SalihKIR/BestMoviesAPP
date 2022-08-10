@@ -61,8 +61,8 @@ protocol MainVMDelegate: MainVMProtocol{
     var dataPacket: RandomResponseElement? {get set}
     var dataRandomOneMovie: RandomoneMovie? {get set}
     var datajustone: RandomoneMovieElement? {get set}
-
-
+    
+    
 }
 
 protocol MainVMDelegatesOutPuts: AnyObject {
@@ -79,7 +79,7 @@ enum MainVMOutputsOnmeMovie{
 }
 
 class MainVM: MainVMDelegate{
-//    var delegateOneMovie: MainVMDelegatesOutPutsOneMovie?
+    //    var delegateOneMovie: MainVMDelegatesOutPutsOneMovie?
     var data: RandomResponse?
     var dataPacket: RandomResponseElement?
     var dataAll: AllMovie?
@@ -112,10 +112,10 @@ class MainVM: MainVMDelegate{
             }else {
                 print(err)
             }
-           
+            
         }
     }
-        private func handleViewModelOutputs(_ type: MainVMOutputsOnmeMovie) {
-            self.delegate?.handleViewModelOutputs(type)
-        }
+    private func handleViewModelOutputs(_ type: MainVMOutputsOnmeMovie) {
+        self.delegate?.handleViewModelOutputs(type)
+    }
 }
